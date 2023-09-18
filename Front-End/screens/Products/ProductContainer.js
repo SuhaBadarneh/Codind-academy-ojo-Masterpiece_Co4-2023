@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { View, StyleSheet, ScrollView } from "react-native";
 import { Container, Header, Icon, Item, Input, Text } from "native-base";
+import baseURL from "../../assets/common/baseURL";
+import axios from "axios";
 const data = require("../../assets/data/products.json");
 const productsCategories = require("../../assets/data/categories.json");
 import ProductList from "./ProductList";
@@ -17,14 +19,26 @@ export default ProductContainer = (props) => {
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
 
-  useEffect(() => {
-    setProducts(data);
-    setProductsFiltered(data);
+  useEffect(async () => {
     setFocus(false);
     setCategories(productsCategories);
     setActive(-1);
-    setProductsCtg(data);
-    setInitialState(data);
+    console.log("axios:", axios);
+    console.log(`${baseURL}products`);
+
+    try {
+      const response = await axios.get(`${baseURL}products`);
+
+      const body = await response.json();
+
+      setProducts(body.data);
+      setProductsFiltered(body.data);
+      setProductsCtg(body.data);
+      setInitialState(body.data);
+      setLoading(false);
+    } catch (e) {
+      console.log(e.message);
+    }
 
     return () => {
       setProducts([]);

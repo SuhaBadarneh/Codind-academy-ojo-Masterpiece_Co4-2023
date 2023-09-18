@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   storeText: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "#FFA451",
+    color: "#EB7407",
   },
   reachText: {
     fontSize: 24,

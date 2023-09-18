@@ -7,6 +7,8 @@ import {
   Text,
   Platform,
 } from "react-native";
+import { connect } from "react-redux";
+import * as actions from "../../Redux/Actions/cartAction";
 import { Button, Left, Right } from "native-base"; // Import Left and Right from NativeBase
 import Icon from "react-native-vector-icons/FontAwesome";
 
@@ -51,7 +53,13 @@ const ProductCard = (props) => {
         </Left>
         <Right>
           {countInStock > 0 ? (
-            <Button style={styles.btn} rounded>
+            <Button
+              style={styles.btn}
+              rounded
+              onPress={() => {
+                props.addItemToCart(props);
+              }}
+            >
               <Text style={styles.btnText}>+</Text>
             </Button>
           ) : (
@@ -63,6 +71,13 @@ const ProductCard = (props) => {
       </View>
     </View>
   );
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart: (product) =>
+      dispatch(actions.addToCart({ quantity: 1, product })),
+  };
 };
 
 const styles = StyleSheet.create({
@@ -144,4 +159,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ProductCard;
+export default connect(null, mapDispatchToProps)(ProductCard);

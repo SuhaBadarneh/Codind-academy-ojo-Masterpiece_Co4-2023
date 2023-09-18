@@ -11,10 +11,11 @@ router.get("/", async (req, res) => {
       filter = { category: req.query.categories.split(",") };
     }
     const productsList = await Product.find(filter).populate("category");
+    console.log(productsList);
     if (!productsList) {
       res.status(500).json({ success: false });
     }
-    res.send(productsList);
+    res.json(productsList);
   } catch (err) {
     console.error(err);
     res.status(500).send("Internal Server Error");

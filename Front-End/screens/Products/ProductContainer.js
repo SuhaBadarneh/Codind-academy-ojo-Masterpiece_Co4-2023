@@ -9,6 +9,7 @@ import ProductList from "./ProductList";
 import SearchedProducts from "./SearchedProducts";
 import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
+import { getProducts } from "../../services/products";
 
 export default ProductContainer = (props) => {
   const [products, setProducts] = useState([]);
@@ -19,27 +20,31 @@ export default ProductContainer = (props) => {
   const [active, setActive] = useState();
   const [initialState, setInitialState] = useState([]);
 
-  useEffect(async () => {
+  async function getAllProducts() {
+    return getProducts().then((response) => {
+      console.log("products", response);
+    });
+  }
+  useEffect(() => {
+    getAllProducts();
     setFocus(false);
-    setCategories(productsCategories);
     setActive(-1);
-    console.log("axios:", axios);
-    console.log(`${baseURL}products`);
+    setCategories(productsCategories);
 
-    try {
-      const response = await axios.get(`${baseURL}products`);
-
-      const body = await response.json();
-
-      setProducts(body.data);
-      setProductsFiltered(body.data);
-      setProductsCtg(body.data);
-      setInitialState(body.data);
-      setLoading(false);
-    } catch (e) {
-      console.log(e.message);
-    }
-
+    // Products
+    // axios
+    //   .get(`${baseURL}products`)
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     setProducts(res.data);
+    //     setProductsFiltered(res.data);
+    //     setProductsCtg(res.data);
+    //     setInitialState(res.data);
+    //     setLoading(false);
+    //   })
+    //   .catch((error) => {
+    //     console.log("Api call error");
+    //   });
     return () => {
       setProducts([]);
       setProductsFiltered([]);

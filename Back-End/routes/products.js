@@ -6,6 +6,16 @@ const mongoose = require("mongoose");
 
 router.get("/", async (req, res) => {
   try {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+      "Access-Control-Allow-Methods",
+      "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    res.setHeader("Access-Control-Allow-Credentials", true);
     let filter = {};
     if (req.query.categories) {
       filter = { category: req.query.categories.split(",") };

@@ -12,7 +12,7 @@ const SearchedProducts = (props) => {
             onPress={() => {
               props.navigation.navigate("Product Detail", { item: item });
             }}
-            key={item._id.$oid}
+            key={item._id}
             avatar
           >
             <Left>

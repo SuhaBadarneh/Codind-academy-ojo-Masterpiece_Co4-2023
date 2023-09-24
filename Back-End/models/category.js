@@ -12,16 +12,16 @@ const categorySchema = mongoose.Schema(
     color: {
       type: String,
     },
-  },
-  {
-    id: true,
-    toJSON: {
-      transform(doc, ret) {
-        ret.id = ret._id;
-        delete ret._id;
-      },
-    },
   }
+  // {
+  //   id: true,
+  //   toJSON: {
+  //     transform(doc, ret) {
+  //       ret.id = ret._id;
+  //       delete ret._id;
+  //     },
+  //   },
+  // }
 );
 
 exports.Category = mongoose.model("Category", categorySchema);

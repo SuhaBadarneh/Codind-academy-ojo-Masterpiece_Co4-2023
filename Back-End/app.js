@@ -16,6 +16,7 @@ app.use(bodyParser.json());
 app.use(morgan("tiny"));
 //with this middleware , our server is secured based on the token,so any request will come, will bbe asked authentication
 app.use(authJwt());
+app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 //handle any error from server
 app.use(errHandler);
 

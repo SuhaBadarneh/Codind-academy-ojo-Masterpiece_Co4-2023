@@ -11,8 +11,16 @@ function MyTabs() {
   return (
     <Tab.Navigator
       tabBarOptions={{
-        showIcon: false, // Hide icons
-        showLabel: true,
+        tabBarHideOnKeyboard: true,
+        tabBarActiveTintColor: "#EB7407",
+        tabBarInactiveTintColor: "#72634E",
+        tabBarShowLabel: false,
+        tabBarStyle: [
+          {
+            display: "flex",
+          },
+          null,
+        ],
       }}
     >
       <Tab.Screen name="Shipping" component={Checkout} />

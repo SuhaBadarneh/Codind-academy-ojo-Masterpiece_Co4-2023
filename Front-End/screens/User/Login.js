@@ -3,17 +3,37 @@ import { View, Text, StyleSheet, Button } from "react-native";
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
 import Error from "../../Shared/Error";
-
+//context
+import AuthGlobal from "../../Context/store/AuthGlobal";
+import { loginUser } from "../../Context/actions/Auth.actions";
 const Login = (props) => {
+  const context = useContext(AuthGlobal);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  useEffect(() => {
+    if (!context.stateUser.isAuthenticated) {
+      setEmail("");
+      setPassword("");
+    }
+  }, [context.stateUser.isAuthenticated]);
+
+  useEffect(() => {
+    if (context.stateUser.isAuthenticated === true) {
+      props.navigation.navigate("User Profile");
+    }
+  }, [context.stateUser.isAuthenticated]);
+
   const handleSubmit = () => {
-    const user = { email, password };
+    const user = {
+      email,
+      password,
+    };
+
     if (email === "" || password === "") {
-      setError("Please Fill in your credentials");
+      setError("Please fill in your credentials");
     } else {
-      console.log("success");
+      loginUser(user, context.dispatch);
     }
   };
   return (

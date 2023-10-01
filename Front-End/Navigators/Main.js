@@ -9,6 +9,7 @@ import CartNavigator from "./CartNavigator";
 import UserNavigator from "./UserNavigator";
 import CartIcon from "../Shared/CartIcon";
 import Register from "../screens/User/Register";
+import AdminNavigator from "./AdminNavigator";
 const Tab = createBottomTabNavigator();
 
 const Main = () => {
@@ -53,7 +54,7 @@ const Main = () => {
       />
       <Tab.Screen
         name="Admin"
-        component={HomeNavigator}
+        component={AdminNavigator}
         options={{
           tabBarIcon: ({ color }) => (
             <Icon name="cog" color={color} size={30} />

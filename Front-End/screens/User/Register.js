@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, Alert } from "react-native";
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
 import Error from "../../Shared/Error";
 import Toast from "react-native-root-toast";
+
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import axios from "axios";
@@ -30,6 +31,23 @@ const Register = (props) => {
       .post(`${baseURL}users/register`, user)
       .then((res) => {
         if (res.status == 200 || res.status == 201) {
+          const toast = Toast.show("You Registered succesfully!", {
+            duration: Toast.durations.SHORT,
+            position: Toast.positions.TOP,
+            shadow: true,
+            animation: true,
+            hideOnPress: true,
+            delay: 0,
+            backgroundColor: "#72634E",
+            textColor: "white",
+            containerStyle: {
+              borderRadius: 10,
+              marginTop: 50,
+              paddingLeft: 20,
+              paddingRight: 20,
+            },
+          });
+          // Alert.alert("You Registered succesfully!");
           setTimeout(() => {
             console.log(props.navigation.navigate("Login"));
           }, 500);

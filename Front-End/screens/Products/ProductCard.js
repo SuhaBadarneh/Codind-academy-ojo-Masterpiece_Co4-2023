@@ -6,11 +6,13 @@ import {
   Image,
   Text,
   Platform,
+  Alert,
 } from "react-native";
 import { connect } from "react-redux";
 import * as actions from "../../Redux/Actions/cartAction";
 import { Button, Left, Right } from "native-base"; // Import Left and Right from NativeBase
 import Icon from "react-native-vector-icons/FontAwesome";
+import Toast from "react-native-root-toast";
 
 let { width } = Dimensions.get("window");
 
@@ -58,6 +60,23 @@ const ProductCard = (props) => {
               rounded
               onPress={() => {
                 props.addItemToCart(props);
+
+                const toast = Toast.show(`${name} Added To Cart!`, {
+                  duration: Toast.durations.SHORT,
+                  position: Toast.positions.TOP,
+                  shadow: true,
+                  animation: true,
+                  hideOnPress: true,
+                  delay: 0,
+                  backgroundColor: "#72634E", // Background color
+                  textColor: "white", // Text color
+                  containerStyle: {
+                    borderRadius: 10,
+                    marginTop: 50,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                  },
+                });
               }}
             >
               <Text style={styles.btnText}>+</Text>

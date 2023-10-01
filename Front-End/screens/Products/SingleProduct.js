@@ -8,6 +8,9 @@ import {
   Button,
 } from "react-native";
 import { Left, Right, Container, H1 } from "native-base";
+import { connect } from "react-redux";
+import * as actions from "../../Redux/Actions/cartAction";
+import Toast from "react-native-root-toast";
 
 const SingleProduct = (props) => {
   const [item, setItem] = useState(props.route.params.item);
@@ -38,7 +41,29 @@ const SingleProduct = (props) => {
           <Text style={styles.price}>${item.price}</Text>
         </Left>
         <Right>
-          <Button title="Add" />
+          <Button
+            title="Add"
+            onPress={() => {
+              props.addItemToCart(item);
+
+              const toast = Toast.show(`${item.name} Added To Cart!`, {
+                duration: Toast.durations.SHORT,
+                position: Toast.positions.TOP,
+                shadow: true,
+                animation: true,
+                hideOnPress: true,
+                delay: 0,
+                backgroundColor: "#72634E", // Background color
+                textColor: "white", // Text color
+                containerStyle: {
+                  borderRadius: 10,
+                  marginTop: 50,
+                  paddingLeft: 20,
+                  paddingRight: 20,
+                },
+              });
+            }}
+          />
         </Right>
       </View>
     </Container>
@@ -82,4 +107,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SingleProduct;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addItemToCart: (product) =>
+      dispatch(actions.addToCart({ quantity: 1, product })),
+  };
+};
+export default connect(null, mapDispatchToProps)(SingleProduct);
